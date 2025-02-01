@@ -6,6 +6,5 @@ tx=$(bitcoin-cli getrawtransaction $txid true)
 
 publickey=$(echo $tx | jq -r '.vin[0].txinwitness[2]')
 
-pubkey=$(echo $publickey | grep -oP '2102\K[0-9a-fA-F]{66}')
+echo $publickey
 
-echo "$pubkey"
