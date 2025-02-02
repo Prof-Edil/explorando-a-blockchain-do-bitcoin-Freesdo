@@ -7,11 +7,13 @@ txid="e5969add849689854ac7f28e45628b89f7454b83e9699e551ce14b6f90c86163"
 
 tx=$(bitcoin-cli getrawtransaction $txid true)
 
-publickeyencode=$(echo $tx | jq -r '.vin[0].txinwitness[2]')
-
-pubkey1=$(echo "$publickeyencode" | grep -oP '2102\K[0-9a-fA-F]{66}' | sed 's/..$//')
-pubkey2=$(echo "$publickeyencode" | grep -oP '2102\K[0-9a-fA-F]{66}' | tail -n 1 | sed 's/..$//')
+publickey=$(echo $tx | jq -r '.vin[0].txinwitness[2]')
 
 
-echo "02$pubkey2"
+
+pubkey1=$(echo "$publickey" | grep -oP '2102\K[0-9a-fA-F]{66}' | sed 's/..$//')
+pubkey2=$(echo "$publickey" | grep -oP '2102\K[0-9a-fA-F]{66}' | tail -n 1 | sed 's/..$//')
+
+
+echo "02$pubkey1"
 
